@@ -1,0 +1,181 @@
+.TH IMG355CTL 1 "October 2026" "img355ctl 0.1.1" "User Commands"
+.SH NAME
+img355ctl \- configure the Inca IMG\-355GX gaming mouse
+.SH SYNOPSIS
+.B img355ctl
+.RI [ options ]
+.I command
+.RI [ arguments ]
+.SH DESCRIPTION
+.B img355ctl
+configures the Inca IMG\-355GX gaming mouse (USB ID 30fa:1040) without the
+vendor's Windows software: DPI levels, LED colours and effects, button bindings,
+media keys and the "fire" repeat interval.
+.PP
+The mouse cannot report its settings back, so
+.B img355ctl
+keeps them in a profile file and writes the whole configuration every time a
+setting changes, the same way the vendor software does when you press Apply.
+Settings are stored in the mouse and survive unplugging.
+All button functions, including media keys, are carried out by the mouse
+itself; no background program is needed.
+.SH OPTIONS
+.TP
+.BI \-\-profile " FILE"
+Use
+.I FILE
+instead of the default profile (see
+.BR FILES ).
+.TP
+.BI \-\-device " PATH"
+Use the given hidraw node instead of detecting the mouse.
+.TP
+.BR \-n ", " \-\-dry\-run
+Print the reports that would be sent, one per line in hex
+.RB ( GET
+for a status read), and do not touch the mouse or save the profile.
+.TP
+.BR \-h ", " \-\-help
+Show help.
+Every command also accepts
+.BR \-\-help .
+.TP
+.BR \-V ", " \-\-version
+Show the version.
+.SH COMMANDS
+Commands that change a setting save the profile and send it to the mouse.
+.TP
+.B status
+Show the detected mouse and the current profile.
+.TP
+.B apply
+Send the profile to the mouse without changing it.
+.TP
+.B reset
+Restore the factory defaults (the same as "Reset" in the vendor software).
+.TP
+.B actions
+List the button functions, media keys and LED effects.
+.TP
+.BI "dpi " "LEVEL " \fR[\fIVALUE\fR] " \fR[\fB\-\-on\fR|\fB\-\-off\fR] [\fB\-\-active\fR]"
+Set the DPI of
+.I LEVEL
+(1\-6).
+.I VALUE
+is 200\-2400 in steps of 200 (except 2200) or 3200\-7200 in steps of 800.
+.B \-\-off
+removes the level from the rotation of the DPI button,
+.B \-\-on
+puts it back, and
+.B \-\-active
+makes the mouse start in this level.
+At least one level must stay enabled.
+.TP
+.BI "color " "LEVEL COLOR"
+Set the LED colour of
+.I LEVEL
+(1\-6, or
+.B all
+for every level), shown by the
+.B dpi\-breathing
+and
+.B static
+effects.
+.I COLOR
+is
+.I RRGGBB
+hex (with or without
+.BR # ,
+3\-digit shorthand allowed) or one of
+.BR red ", " green ", " blue ", " yellow ", " cyan ", " magenta ", " pink ,
+.BR white ", " orange ", " purple ", " black .
+The mouse has 4 bits per channel, so close colours may look the same.
+.TP
+.BI "button " "N ACTION"
+Bind button
+.I N
+(2\-6, numbered as in the vendor software: 2 right, 3 middle, 4 forward,
+5 back, 6 the button on top) to
+.IR ACTION .
+Button 1 always stays the left click.
+See
+.BR ACTIONS .
+.TP
+.BI "led " EFFECT " \fR[\fB\-\-speed\fR \fIN\fR] [\fB\-\-colors\fR \fILIST\fR]"
+Set the LED effect; see
+.BR ACTIONS .
+.B \-\-speed
+is 1\-6.
+.B \-\-colors
+selects which of the 7 built\-in cycle colours are used, for example
+.BR \(dq1 3 5\(dq .
+.TP
+.BI "fire " MS
+Set the repeat interval of the
+.B fire
+function in milliseconds (8\-2040, rounded down to a multiple of 8).
+.SH ACTIONS
+Button functions:
+.RS
+.B middle right back forward dpi\-loop show\-desktop double\-click fire dpi+ dpi\- led\-loop profile\-1 profile\-2 profile\-3 profile\-4
+.RE
+.PP
+Media keys:
+.RS
+.B browser player mail volume\-up volume\-down previous next mute play\-pause calculator
+.RE
+.PP
+LED effects:
+.RS
+.B dpi\-breathing cycle\-breathing static flowing\-water mono\-water comet neon ambilight flicker star\-trek ripple enraptured button\-response off
+.RE
+.SH FILES
+.TP
+.I $XDG_CONFIG_HOME/img355ctl/profile.ini
+The profile (default
+.IR ~/.config/img355ctl/profile.ini ).
+It is a plain INI file and can be edited by hand; run
+.B img355ctl apply
+afterwards.
+.TP
+.I /usr/lib/udev/rules.d/70\-img355\-mouse.rules
+udev rule giving the logged\-in user access to the mouse's hidraw node
+(installed by the .deb package; shipped as
+.IR contrib/70\-img355\-mouse.rules ).
+.SH EXIT STATUS
+0 on success, 1 on error (for example the mouse is missing, a value is out of
+range or the profile is invalid), 2 on invalid command line usage.
+.SH EXAMPLES
+.nf
+img355ctl dpi 1 800             # first level: 800 DPI
+img355ctl dpi 6 \-\-off           # skip level 6
+img355ctl color all red         # every level red
+img355ctl led static            # steady colour
+img355ctl led comet \-\-speed 2   # slower comet effect
+img355ctl led off               # LEDs off
+img355ctl button 5 volume\-up    # side button raises the volume
+img355ctl \-n reset              # show the factory settings as reports
+.fi
+.SH NOTES
+Without the udev rule only root can open the mouse.
+The .deb package installs it; otherwise
+.PP
+.nf
+sudo install \-m 644 contrib/70\-img355\-mouse.rules /etc/udev/rules.d/
+sudo udevadm control \-\-reload\-rules
+.fi
+.PP
+and plug the mouse in again.
+.SH BUGS
+Settings cannot be read from the mouse.
+If they are changed by other software,
+.B img355ctl apply
+restores the profile.
+.PP
+Macros, shortcuts, the other three profiles and the polling rate are not
+supported yet.
+.SH SEE ALSO
+.BR img355ctl\-gui ,
+the graphical version, which edits the same profile;
+.BR hidraw (4),
+.BR udev (7)

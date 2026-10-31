@@ -1,0 +1,4 @@
+# Inca IMG-355GX gaming mouse: give the logged-in user access to its hidraw nodes
+# so img355ctl can configure it without root.
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="30fa", ATTRS{idProduct}=="1040", TAG+="uaccess"
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="30fa", ATTRS{idProduct}=="1140|1440", TAG+="uaccess"
