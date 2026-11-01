@@ -20,8 +20,10 @@ app (`img355ctl-gui`).
 
 ## Where to buy
 
-The IMG-355GX is available on Hepsiburada (Turkey):
-**[IMG-355GX gaming mouse on Hepsiburada](https://www.hepsiburada.com/product-p-HBCV0000OG3NG2?magaza=ARI%20B%C4%B0L%C4%B0%C5%9E%C4%B0M%20%C4%B0LET%C4%B0%C5%9E%C4%B0M%20VE%20DANI%C5%9EMANLIK)**
+The IMG-355GX is available on Hepsiburada and PTTAVM (Turkey):
+
+- **[IMG-355GX gaming mouse on Hepsiburada](https://www.hepsiburada.com/product-p-HBCV0000OG3NG2?magaza=ARI%20B%C4%B0L%C4%B0%C5%9E%C4%B0M%20%C4%B0LET%C4%B0%C5%9E%C4%B0M%20VE%20DANI%C5%9EMANLIK)**
+- **[IMG-355GX gaming mouse on PTTAVM](https://www.pttavm.com/item-p-1655242114)**
 
 ## Supported hardware
 

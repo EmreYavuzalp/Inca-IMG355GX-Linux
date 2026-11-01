@@ -26,8 +26,10 @@ bir pencere uygulaması (`img355ctl-gui`) olarak gelir.
 
 ## Satın al
 
-IMG-355GX'i Hepsiburada'dan alabilirsiniz:
-**[IMG-355GX Gaming Mouse, Hepsiburada](https://www.hepsiburada.com/product-p-HBCV0000OG3NG2?magaza=ARI%20B%C4%B0L%C4%B0%C5%9E%C4%B0M%20%C4%B0LET%C4%B0%C5%9E%C4%B0M%20VE%20DANI%C5%9EMANLIK)**
+IMG-355GX'i Hepsiburada veya PTTAVM'den satın alabilirsiniz:
+
+- **[IMG-355GX Gaming Mouse, Hepsiburada](https://www.hepsiburada.com/product-p-HBCV0000OG3NG2?magaza=ARI%20B%C4%B0L%C4%B0%C5%9E%C4%B0M%20%C4%B0LET%C4%B0%C5%9E%C4%B0M%20VE%20DANI%C5%9EMANLIK)**
+- **[IMG-355GX Gaming Mouse, PTTAVM](https://www.pttavm.com/item-p-1655242114)**
 
 ## Desteklenen fareler
 
